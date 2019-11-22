@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Title -->
+  <title>Hotel | Space - Responsive Website Template</title>
+
+  <!-- Required Meta Tags Always Come First -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+
+  <!-- Google Fonts -->
+  <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet"> 
+
+  <!-- CSS Template -->
+  <link rel="stylesheet" href="theme.css">
+</head>
+
+<body>
+  <!-- ========== HEADER ========== -->
+  <header class="bg-dark ">
+    <div class="container ">
+      <div class="row justify-content-md-between">
+        
+        <div class="col-lg-12 order-lg-12 d-flex align-items-start flex-column pt-5 pb-5">
+              <div class="row">
+                  <div class="col-2">
+                     <!-- Logo -->                     
+                        <img src="logo-short-white.svg" alt="Logo" style="width: 75px; max-width: 100%;">
+                     <!-- End Logo -->   
+                  </div> 
+                  <div class="col-10 mt-3" style="color:#fff">
+                      <h1>SPACE CALCULATE</h1>
+                  </div>
+            </div>
+        </div>       
+     </div>
+    </div>
+  </header>
+  <!-- ========== END HEADER ========== -->
+    
+  <!-- ========== MAIN CONTENT ========== -->
+  <main id="content">
+    <!-- Hero Section -->
+    <div class="gradient-overlay-half-white-v2 bg-img-hero" style="background-image: url(blog-post-1.jpg);">
+      
+      <div class="d-lg-flex align-items-lg-center flex-lg-column pb-sm-6">
+        <div class="container space-2 space-3--sm ">
+            
+          <!-- Title -->
+          <div class="w-lg-50 mb-4 mb-sm-9 pb-1">
+            <h1 class="text-uppercase text-gray-700 font-weight-medium letter-spacing-0_06 mb-3">Welcome to Space Calculate</h1>
+            <h2 class="display-4 font-size-48--md-down mb-3">Calculate your monthly payment and be ready</h2>
+            <p>Enter the various details such as the purchase price, the deposit paid, paymentbond term in years and fixed interest rate so we can calculate your monthly. Enter only numeric values (no commas), using decimal points where needed.<br>Non-numeric values will cause errors.</p>
+          </div>
+          <!-- End Title -->            
+
+
+          
+            
+            <form name=loandata class="bg-white rounded shadow-sm p-5" >
+            <div class="row">
+                
+                <div class="col-md-12 col-lg-12">
+                <div class="form-group mb-3">
+                  <label class="text-uppercase font-weight-medium">Name of Calculation</label>
+                  <div id="datepickerWrapperTo" class="u-datepicker input-group">
+                    <div class="input-group-prepend">
+                      <div id="calendarToLabel" class="input-group-text">
+                        <i class="svg-icon svg-icon-xs text-muted">
+                         <img src="logo-short-white.svg" alt="Logo" style="width: 25px; max-width: 100%;">
+                        </i>
+                      </div>
+                    </div>
+
+                      <input disabled class="js-range-datepicker form-control bg-white text-muted"  placeholder="Name Of Calculation" type="text" name="name" size="12">
+                  </div>
+                </div>
+              </div>
+                
+              <div class="col-md-6 col-lg-3">
+                <div class="form-group mb-3">
+                  <label class="text-uppercase font-weight-medium">Purchase price</label>
+                  <div id="datepickerWrapperFrom" class="u-datepicker input-group">
+                    <div class="input-group-prepend">
+                      <div id="calendarFromLabel" class="input-group-text">
+                        <i class="text-muted">
+                              <img src="logo-short-white.svg" alt="Logo" style="width: 25px; max-width: 100%;">
+                        </i>
+                      </div>
+                    </div>       
+                     
+                      <input  class="js-range-datepicker form-control bg-white text-muted" placeholder="Purchase Price" type="text" name="principal" size="12"  
+                 onchange="calculate();">
+                  </div>
+                </div>
+                  
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="form-group mb-3">
+                  <label class="text-uppercase font-weight-medium">Deposit paid</label>
+                  <div id="datepickerWrapperTo" class="u-datepicker input-group">
+                    <div class="input-group-prepend">
+                      <div id="calendarToLabel" class="input-group-text">
+                        <i class="svg-icon svg-icon-xs text-muted">
+                                 <img src="logo-short-white.svg" alt="Logo" style="width: 25px; max-width: 100%;">
+                        </i>
+                      </div>
+                    </div>
+
+
+                                  <input class="js-range-datepicker form-control bg-white text-muted"  placeholder="Fixed Interest Rate" type="text" name="dep" size="12" 
+                 onchange="calculate();">
+                    
+                  </div>
+                </div>
+              </div>
+                
+                           <div class="col-md-6 col-lg-3">
+                <div class="form-group mb-3">
+                  <label class="text-uppercase font-weight-medium">Bond term in years</label>
+                  <div id="datepickerWrapperFrom" class="u-datepicker input-group">
+                    <div class="input-group-prepend">
+                      <div id="calendarFromLabel" class="input-group-text">
+                        <i class="svg-icon svg-icon-xs text-muted">
+                                  <img src="logo-short-white.svg" alt="Logo" style="width: 25px; max-width: 100%;">
+                        </i>
+                      </div>
+                    </div>
+
+                      <input class="js-range-datepicker form-control bg-white text-muted" placeholder="Bond Term In Years" type="text" name="years" size="12" 
+                 onchange="calculate();">
+                  </div>
+                </div>
+                  
+              </div>
+
+              <div class="col-md-6 col-lg-3">
+                <div class="form-group mb-3">
+                  <label class="text-uppercase font-weight-medium">Fixed interest rate</label>
+                  <div id="datepickerWrapperTo" class="u-datepicker input-group">
+                    <div class="input-group-prepend">
+                      <div id="calendarToLabel" class="input-group-text">
+                        <i class="svg-icon svg-icon-xs text-muted">
+                         <img src="logo-short-white.svg" alt="Logo" style="width: 25px; max-width: 100%;">
+                        </i>
+                      </div>
+                    </div>
+                
+                      <input class="js-range-datepicker form-control bg-white text-muted"  placeholder="Fixed Interest Rate" type="text" name="interest" size="12" 
+                 onchange="calculate();">
+                  </div>
+                </div>
+              </div>
+                
+              <div class="col-md-12 col-lg-12">
+                <div class="form-group mb-3">
+                  <label class="text-uppercase font-weight-medium">Monthly payment</label>
+                  <div id="datepickerWrapperTo" class="u-datepicker input-group">
+                    <div class="input-group-prepend">
+                      <div id="calendarToLabel" class="input-group-text">
+                        <i class="svg-icon svg-icon-xs text-muted">
+                         <img src="logo-short-white.svg" alt="Logo" style="width: 25px; max-width: 100%;">
+                        </i>
+                      </div>
+                    </div>
+
+                      <input disabled class="js-range-datepicker form-control bg-white text-muted"  placeholder="Monthly Payment" type="text" name="payment" size="12">
+                  </div>
+                </div>
+              </div>
+                 
+                
+              <div class="col-lg-12">
+                <div class="row align-items-end">            
+                  <div class="col-12 pl-0 pl-sm-3">       
+                 
+                   <input  class=" text-uppercase btn btn-primary d-block w-100 px-2 px-sm-12" type="button" value="Calculate" onclick="calculate('tableDiv');">
+                    
+                  </div>
+                </div>
+              </div>
+                 <div class="col-lg-12">
+                <div class="row align-items-end">            
+                  <div class="col-12 pl-0 pl-sm-3">       
+                       <input  class=" text-uppercase btn d-block w-100 px-2 px-sm-12"  type=reset value=Reset>
+                    
+                  </div>
+                </div>
+            </div>      
+            </div>
+                
+
+                
+<center>
+	
+		<div id="tableDiv" style=" display:none">
+				
+    
+           
+		
+
+		<div id="divMsg" >
+				<p>The table below shows the year and percentage of the repayments for that year that is paying off the interest on the loan vs the percentage that is paying off the capital amount.</p>
+                            
+            <table style="width:60%" border="1|0" >              
+         
+                <tr >
+                    <th style="width:20% "> <label class="text-uppercase font-weight-medium"><strong>Year</strong></label></th>
+                    <th style="width:20%"> <label class="text-uppercase font-weight-medium"><strong>Interest %</strong></label></th>
+                    <th style="width:20%"> <label class="text-uppercase font-weight-medium"><strong>Capital %</strong></label></th>
+                </tr>
+            <tr>
+              <td>1</td>
+              <td>99%</td>
+              <td>1%</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>98%:</td>
+              <td>2%</td>
+            </tr>
+                          <tr>
+              <td>3</td>
+              <td>95%</td>
+              <td>5%</td>
+            </tr>
+                <tr>
+              <td>...</td>
+              <td>...</td>
+              <td>...</td>
+            </tr>
+          </table>
+		</div>
+    </div>           
+    
+	</center>
+              
+           
+          </form>
+            
+       
+        </div>
+      </div>
+    </div>
+    <!-- End Hero Section --> 
+        <!-- ========== FOOTER ========== -->
+  <footer class="bg-dark ">
+    <div class="container ">
+      <div class="row justify-content-md-between">
+        
+        <div class="col-lg-12 order-lg-12 d-flex align-items-start flex-column pt-5 pb-5">
+              <div class="row">
+                  <div class="col-2">
+                     <!-- Logo -->                     
+                        <img src="logo-short-white.svg" alt="Logo" style="width: 75px; max-width: 100%;">
+                     <!-- End Logo -->   
+                  </div> 
+                  <div class="col-10 mt-3" style="color:#fff">
+                      <h1>SPACE CALCULATE</h1>
+                  </div>
+            </div>
+        </div>       
+     </div>
+    </div>
+  </footer>
+  <!-- ========== END FOOTER ========== -->
+      
+      
+
+  
+  </main>
+  <!-- ========== END MAIN CONTENT ========== -->
+ 
+  <!-- JS -->
+
+        
+        
+<script language="JavaScript">
+function calculate(ele) {
+   //show table start 
+ var srcElement = document.getElementById(ele);
+				if (srcElement != null) {
+					if (srcElement.style.display == "block") {
+						srcElement.style.display = 'none';
+					}
+					else {
+						srcElement.style.display = 'block';
+					}
+					return false;
+				}
+    //show table end 
+    //calculation start
+    var principal = document.loandata.principal.value;
+    var dep = document.loandata.dep.value;
+    var interest = document.loandata.interest.value / 100 / 12;
+    var payments = document.loandata.years.value * 12;
+    var loadAmount = principal - dep;
+    var name = document.loandata.name.value;
+    
+    var x = Math.pow(1 + interest, payments);
+    var monthly = (loadAmount*x*interest)/(x-1);
+    
+    if (!isNaN(monthly) && 
+        (monthly != Number.POSITIVE_INFINITY) &&
+        (monthly != Number.NEGATIVE_INFINITY)) {
+
+        document.loandata.payment.value = round(monthly);
+    }
+    
+    else {
+        document.loandata.payment.value = "";
+    }
+      //calculation end
+
+}
+//decimal start
+function round(x) {
+  return Math.round(x*100)/100;
+}
+    //decimal end
+    
+	
+	
+</script>
+        
+
+
+</body>
+</html>
+
+<!-- function showpay() {
+ if ((document.calc.loan.value == null || document.calc.loan.value.length == 0) ||
+     (document.calc.months.value == null || document.calc.months.value.length == 0)
+||
+     (document.calc.rate.value == null || document.calc.rate.value.length == 0))
+ { document.calc.pay.value = "Incomplete data";
+ }
+ else
+ {
+ var princ = document.calc.loan.value;
+ var term  = document.calc.months.value;
+ var intr   = document.calc.rate.value / 1200;
+ document.calc.pay.value = princ * intr / (1 - (Math.pow(1/(1 + intr), term)));
+ }
+
+payment = principle * monthly interest/(1 - (1/(1+MonthlyInterest)*Months))
+
+} -->
