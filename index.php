@@ -13,39 +13,36 @@
     <link href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
 
     <!-- CSS Template -->
-    <link rel="stylesheet" href="../theme.css" type="text/css">
+    <link rel="stylesheet" href="../style.css" type="text/css">
 
-    <!-- Script
-    <script src="RegisterPage.js"> -->
+    <!-- Script  -->
     <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 
 <body>
-    <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        // Create connection
-        $conn = new mysqli($servername, $username, $password);
-        // Check connection
-             if ($conn){
-                     echo "You are connected"."<br>";
-                }
-                if(!$conn){
-                    die("This went wrong:  ".mysqli_error());
-                }
-            
+    <?php   
+            $servername = "localhost";
+            $username = "id11704850_root";
+            $password = "rootroot";
+    
+            // Create connection
+            $conn = new mysqli($servername, $username, $password);
+     
+            // Selecting the database 
+            $db_name="id11704850_bondcalc"; 
+            $my_db_select = mysqli_select_db($conn, $db_name); 
 
-        // selecting the database 
-        $db_name="bondcalc"; 
-        $my_db_select = mysqli_select_db($conn, $db_name);
-        // checking that database was selected
-             if ($db_name){
-                echo "Database has been selected"."<br>";    
-                }else{
+            if($_POST){
+                //Insert statement             
+                $my_insert_query= "INSERT INTO `calcinfo`(`Id`, `Name`, `Price`, `Term`, `Rate`, `Depo`, `DateCreated`) VALUES ('Id12345','Andrea','10.00','30','6.5','5.00','2019-11-28 00:00:00')";
 
-                    echo "Database not found";
-                }         
+                /*
+                $c = uniqid (rand (),true); 
+                $date =date()
+                "INSERT INTO `calcinfo`(`Id`, `Name`, `Price`, `Term`, `Rate`, `Depo`, `DateCreated`)  VALUES ($c,{$conn->real_escape_string($_POST['name'])},{$conn->real_escape_string($_POST['price'])},
+                {$conn->real_escape_string($_POST['term'])},{$conn->real_escape_string($_POST['rate'])},{$conn->real_escape_string($_POST['rate'])},{$conn->real_escape_string($_POST['depo'])}, $date)";
+                */    
+             }
     ?>
 
     <!-- ========== HEADER ========== -->
@@ -87,7 +84,8 @@
                     </div>
                     <!-- End Title -->
 
-                    <form name=loandata class="bg-white rounded shadow-sm p-5">
+                    <form method="post" action="" name=loandata class="bg-white rounded shadow-sm p-5">
+
                         <div class="row">
 
                             <div class="col-md-12 col-lg-12">
@@ -196,14 +194,22 @@
                                 </div>
                             </div>
 
+
                         </div>
 
                         <center>
-                            <p>The table below shows the year and percentage of the repayments for that year that is paying off the interest on the loan vs the percentage that is paying off the capital amount.</p>
-                            <div id="dvTable"></div>
-                        </center>
+                            <p>When <strong><u>Calculate</u></strong> is pressed a table shows the year and percentage of the repayments for that year that is paying off the interest on the loan vs the percentage that is paying off the capital amount.</p>
 
-                        <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                            <div class="mb-5" id="dvTable"> </div>
+
+                            <p>The stack bar graph illustrates how your payment amount vs the term of the loan would progress. </p>
+                            <h3>Repayment splits</h3>
+                            <div class="row">
+                                <div class="col-1">Year</div>
+                            </div>
+                            <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+                            Amount
+                        </center>
 
                     </form>
                 </div>
@@ -231,13 +237,14 @@
                 </div>
             </div>
         </footer>
+
         <!-- ========== END FOOTER ========== -->
 
     </main>
     <!-- ========== END MAIN CONTENT ========== -->
 
     <!-- JS -->
-    <script language="JavaScript">   
+    <script language="JavaScript">
         //Validation name start
         function calc(ele) {
             var name = document.getElementById('name');
@@ -293,6 +300,7 @@
                 alert("Enter your intrest rate");
                 return false;
             } else {
+
                 //calculation start
                 var principal = document.loandata.principal.value;
                 var dep = document.loandata.dep.value;
@@ -304,30 +312,45 @@
 
                 var x = Math.pow(1 + interest, payments);
                 var monthly = (loadAmount * x * interest) / (x - 1);
-
-                var totalAmount = monthly * term;
-                var totalIntresAmount = principal - totalAmount;
-
                 if (!isNaN(monthly) &&
                     (monthly != Number.POSITIVE_INFINITY) &&
                     (monthly != Number.NEGATIVE_INFINITY)) {
-
                     document.loandata.payment.value = round(monthly);
-
                 } else {
                     document.loandata.payment.value = "";
                 }
                 //calculation end
 
-                //show table start 
+                //Show table start 
                 var contentItems = new Array();
                 contentItems.push(["Year", "Intrest %", "Capital %"]);
                 var i;
                 var a = round(totalAmount);
                 var b = round(totalIntresAmount);
-                for (i = 0; i < term; i++) {
+                var yearPayment = round(monthly * 12);
+                var totalAmount = monthly * term;
+                var totalIntresAmount = principal - totalAmount;
 
-                    contentItems.push([i + 1, a, b]);
+
+                var totalIntrest = monthly * 12 * term;
+                var sum = yearPayment;
+                var number = 0;
+
+                while (number < term) {
+                    if (sum >= loadAmount && sum >= totalIntrest) {
+                        contentItems.push([number + 1, '100', '100']);
+                    } else if (sum < loadAmount) {
+                        var capitalLeft = loadAmount - sum;
+                        var capitalLeftPer = round(capitalLeft / loadAmount * 100);
+                        contentItems.push([number + 1, '0', capitalLeftPer]);
+                    } else if (sum > loadAmount && sum < totalIntrest) {
+                        var intrsetAmountLeft = totalIntrest - sum;
+                        var intrsetAmountLeftPer = round(intrsetAmountLeft / totalIntrest * 100);
+                        contentItems.push([number + 1, intrsetAmountLeftPer, '100']);
+                    }
+
+                    sum += sum;
+                    number++;
                 }
 
                 //Create a HTML Table element.
@@ -357,24 +380,25 @@
                 var dvTable = document.getElementById("dvTable");
                 dvTable.innerHTML = "";
                 dvTable.appendChild(table);
-                //show table end 
-                
+
+                //Show table end 
+
             }
         }
         //Validate intrest end
 
-        //decimal start
+        //Decimal start
         function round(x) {
             return Math.round(x * 100) / 100;
         }
-        //decimal end
-        
+        //Decimal end
+
+        //Chart start
         window.onload = function() {
-  
             var chart = new CanvasJS.Chart("chartContainer", {
                 animationEnabled: true,
                 title: {
-                    text: "Payment graph"
+                    text: ""
                 },
                 axisX: {
                     valueFormatString: "YYYY"
@@ -384,7 +408,7 @@
                 },
                 toolTip: {
                     shared: true
-                }, 
+                },
                 legend: {
                     cursor: "pointer",
                     itemclick: toggleDataSeries
@@ -392,40 +416,40 @@
                 data: [{
                         type: "stackedBar",
                         name: "",
-                        showInLegend: "false",
+                        showInLegend: "true",
                         xValueFormatString: "",
-                        yValueFormatString: "$#,##0",
+                        yValueFormatString: "R#,##0",
                         dataPoints: [{
                                 x: new Date(2019, 0, 01),
                                 y: 12
                             },
                             {
-                                x: new Date(2019, 1, 01),
-                                y: 45
+                                x: new Date(2020, 0, 01),
+                                y: 24
                             },
                             {
-                                x: new Date(2019, 2, 01),
-                                y: 71
+                                x: new Date(2021, 0, 01),
+                                y: 48
                             },
                             {
-                                x: new Date(2019, 3, 01),
-                                y: 41
-                            },
-                            {
-                                x: new Date(2019, 4, 01),
+                                x: new Date(2022, 0, 01),
                                 y: 60
                             },
                             {
-                                x: new Date(2019, 5, 01),
-                                y: 75
+                                x: new Date(2023, 0, 01),
+                                y: 72
                             },
                             {
-                                x: new Date(2019, 6, 01),
-                                y: 98
+                                x: new Date(2024, 0, 01),
+                                y: 84
+                            },
+                            {
+                                x: new Date(2025, 0, 01),
+                                y: 96
                             }
                         ]
                     }
-                  
+
                 ]
             });
             chart.render();
@@ -440,6 +464,7 @@
             }
 
         }
+        //Chart end
 
     </script>
 
